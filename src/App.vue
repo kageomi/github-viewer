@@ -14,12 +14,16 @@
 <script lang="ts">
 import Vue from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
+import { get } from './api'
 
 export default Vue.extend({
   data() {
     return {
       msg: 'Hello + Vue 2 :)'
     }
+  },
+  mounted() {
+    get().then(data => console.log(data))
   },
   components: {
     HelloWorld
