@@ -5,7 +5,19 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    RepositoryDetail: typeof import('./src/components/views/RepositoryDetail.vue')['default']
+    RepositorySearch: typeof import('./src/components/views/RepositorySearch.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
+    VApp: typeof import('vuetify/lib')['VApp']
+    VAppBar: typeof import('vuetify/lib')['VAppBar']
+    VAppBarNavIcon: typeof import('vuetify/lib')['VAppBarNavIcon']
     VBtn: typeof import('vuetify/lib')['VBtn']
+    VCheckbox: typeof import('vuetify/lib')['VCheckbox']
+    VContainer: typeof import('vuetify/lib')['VContainer']
+    VMain: typeof import('vuetify/lib')['VMain']
+    VSpacer: typeof import('vuetify/lib')['VSpacer']
+    VToolbar: typeof import('vuetify/lib')['VToolbar']
+    VToolbarTitle: typeof import('vuetify/lib')['VToolbarTitle']
   }
 }

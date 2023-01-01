@@ -1,19 +1,16 @@
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-    <v-btn elevation="2"></v-btn>
-    <HelloWorld :msg="msg" />
-  </div>
+  <v-app>
+    <v-app-bar app> Github Viewer </v-app-bar>
+    <v-main>
+      <v-container>
+        <router-view></router-view>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
 import { searchRepositories, getRepository } from './api/github'
 
 export default Vue.extend({
@@ -27,9 +24,6 @@ export default Vue.extend({
     getRepository({ owner: 'kageomi', repo: 'japaoke' }).then(data =>
       console.log(data)
     )
-  },
-  components: {
-    HelloWorld
   }
 })
 </script>
