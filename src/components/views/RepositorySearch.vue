@@ -2,17 +2,20 @@
   <div class="d-flex flex-column align-center">
     <h2>Search Repositories</h2>
     <v-divider class="my-5"></v-divider>
-    <search-field v-model="keyword" :isFetching="isFetching" />
+    <div class="d-flex" style="gap: 10px">
+      <search-field v-model="keyword" :isFetching="isFetching" />
+      <v-switch v-model="onlyMIT" :label="`only MIT License`"></v-switch>
+    </div>
     <v-card
       class="mx-auto rounded"
       max-width="600"
       tile
-      v-if="repositories.length"
+      v-if="filteredRepositories.length"
     >
       <router-link
         :to="repo.full_name"
         :key="repo.id"
-        v-for="repo in repositories"
+        v-for="repo in filteredRepositories"
         style="text-decoration: none"
       >
         <repo-list-item :repo="repo" />
@@ -34,7 +37,10 @@ interface State {
   isFetching: boolean
   abortController: AbortController
   repositories: RepositoryHeader[]
+  onlyMIT: boolean
 }
+
+const PER_PAGE = 100
 
 export default Vue.extend({
   components: {
@@ -49,7 +55,8 @@ export default Vue.extend({
       keyword: '',
       isFetching: false,
       abortController: new AbortController(),
-      repositories: []
+      repositories: [],
+      onlyMIT: false
     }
     return state
   },
@@ -60,7 +67,11 @@ export default Vue.extend({
       const { signal } = this.abortController
 
       this.isFetching = true
-      const { data } = await api.searchRepositories({ q: keyword, signal })
+      const { data } = await api.searchRepositories({
+        q: keyword,
+        perPage: PER_PAGE,
+        signal
+      })
       console.log(data)
       const { items } = data
 
@@ -77,6 +88,15 @@ export default Vue.extend({
         stargazers_count: item.stargazers_count
       }))
       this.isFetching = false
+    }
+  },
+  computed: {
+    filteredRepositories() {
+      if (this.repositories == null) return []
+      return this.repositories.filter(repo => {
+        if (!this.onlyMIT) return true
+        return repo.license && repo.license.key === 'mit'
+      })
     }
   },
   watch: {
