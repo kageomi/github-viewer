@@ -14,7 +14,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
-import { get } from './api'
+import { searchRepositories, getRepository } from './api/github'
 
 export default Vue.extend({
   data() {
@@ -23,7 +23,10 @@ export default Vue.extend({
     }
   },
   mounted() {
-    get().then(data => console.log(data))
+    searchRepositories({ q: 'react' }).then(data => console.log(data))
+    getRepository({ owner: 'kageomi', repo: 'japaoke' }).then(data =>
+      console.log(data)
+    )
   },
   components: {
     HelloWorld
