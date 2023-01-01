@@ -6,11 +6,12 @@ import {
   optional,
   nullable,
   boolean,
-  Infer
+  Infer,
+  array
 } from 'superstruct'
 import { UserRuntimeType } from './User'
 
-const RepositoryHeaderRuntimeType = object({
+const RepositoryRuntimeType = object({
   id: number(),
   // node_id: string(),
   name: string(),
@@ -97,15 +98,16 @@ const RepositoryHeaderRuntimeType = object({
       node_id: string(),
       html_url: optional(string())
     })
-  )
+  ),
+  topics: optional(array(string()))
   // roman: optional(string())
 })
 
-type RepositoryHeader = Infer<typeof RepositoryHeaderRuntimeType>
+type Repository = Infer<typeof RepositoryRuntimeType>
 
-const isRepositoryHeader = (object: unknown): object is RepositoryHeader => {
-  return is(object, RepositoryHeaderRuntimeType)
+const isRepository = (object: unknown): object is Repository => {
+  return is(object, RepositoryRuntimeType)
 }
 
-export { isRepositoryHeader }
-export type { RepositoryHeader }
+export { isRepository }
+export type { Repository }

@@ -1,5 +1,5 @@
 import { Octokit } from 'octokit'
-import { RepositoryHeader } from '../../types/RepositoryHeader'
+import { Repository } from '../../types/Repository'
 
 interface SearchRepositoriesRequest {
   q: string
