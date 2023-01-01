@@ -18,18 +18,9 @@
 import Vue, { PropType } from 'vue'
 import { Repository } from '../../types/Repository'
 
-interface State {
-  keyword: string
-  isFetching: boolean
-  abortController: AbortController
-  repositories: Repository[]
-}
-
 export default Vue.extend({
   props: {
     repo: Object as PropType<Repository>
   }
 })
 </script>
-
-<style scoped></style>
