@@ -12,6 +12,7 @@
   "dependencies": {
     "isomorphic-fetch": "^3.0.0",
     "octokit": "^2.0.10",
+    "superstruct": "^1.0.3",
     "vite-plugin-vue2": "^2.0.3",
     "vite-plugin-vuetify": "^1.0.1",
     "vue": "2",
