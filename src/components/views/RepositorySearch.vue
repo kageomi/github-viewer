@@ -54,13 +54,13 @@ export default Vue.extend({
     return state
   },
   methods: {
-    async search() {
+    async search(keyword: string) {
       if (this.abortController) this.abortController.abort()
       this.abortController = new AbortController()
       const { signal } = this.abortController
 
       this.isFetching = true
-      const { data } = await api.searchRepositories({ q: this.keyword, signal })
+      const { data } = await api.searchRepositories({ q: keyword, signal })
       console.log(data)
       const { items } = data
 
@@ -80,9 +80,8 @@ export default Vue.extend({
     }
   },
   watch: {
-    keyword(newKeyword, prevKeyword) {
-      console.log(newKeyword)
-      this.search()
+    keyword(newKeyword) {
+      this.search(newKeyword)
     }
   }
 })
