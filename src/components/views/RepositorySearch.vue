@@ -13,7 +13,7 @@
       v-if="filteredRepositories.length"
     >
       <router-link
-        :to="repo.full_name"
+        :to="`repo/${repo.full_name}`"
         :key="repo.id"
         v-for="repo in filteredRepositories"
         style="text-decoration: none"
