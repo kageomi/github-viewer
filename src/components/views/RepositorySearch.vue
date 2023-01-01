@@ -1,6 +1,22 @@
 <template>
-  <div>
-    <h1>Search</h1>
+  <div class="d-flex flex-column align-center">
+    <h2>Search</h2>
+    <v-divider class="my-5"></v-divider>
+    <v-text-field
+      block
+      max-width="600"
+      v-model="keyword"
+      solo
+      label="Enter the keyword for search repositories"
+      clearable
+    ></v-text-field>
+    <v-card class="mx-auto" max-width="600" tile>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>Single-line item</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </v-card>
   </div>
 </template>
 
@@ -13,7 +29,12 @@ export default Vue.extend({
   },
   data() {
     return {
-      count: 0
+      keyword: ''
+    }
+  },
+  watch: {
+    keyword(newKeyword, prevKeyword) {
+      console.log(newKeyword)
     }
   }
 })
