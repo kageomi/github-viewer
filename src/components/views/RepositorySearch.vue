@@ -2,8 +2,12 @@
   <div class="d-flex flex-column align-center">
     <h2>Search Repositories</h2>
     <v-divider class="my-5" style="min-width: 80%"></v-divider>
-    <div class="d-flex" style="gap: 10px">
-      <search-field v-model="keyword" :isFetching="isFetching" />
+    <div class="d-flex" style="gap: 20px; min-width: 80%">
+      <search-field
+        class="flex-grow-1"
+        v-model="keyword"
+        :isFetching="isFetching"
+      />
       <v-switch v-model="onlyMIT" :label="`only MIT License`"></v-switch>
     </div>
     <v-card
