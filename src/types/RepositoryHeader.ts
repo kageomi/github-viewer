@@ -65,6 +65,7 @@ const RepositoryHeaderRuntimeType = object({
   // pulls_url: string(),
   // releases_url: string(),
   // ssh_url: string(),
+  stargazers_count: number(),
   // stargazers_url: string(),
   // statuses_url: string(),
   // subscribers_url: string(),

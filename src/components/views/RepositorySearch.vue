@@ -73,7 +73,8 @@ export default Vue.extend({
         watchers: item.watchers,
         homepage: item.homepage,
         language: item.language,
-        license: item.license
+        license: item.license,
+        stargazers_count: item.stargazers_count
       }))
       this.isFetching = false
     }

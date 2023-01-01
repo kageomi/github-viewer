@@ -8,7 +8,7 @@
       >
         <div>{{ repo.license && repo.license.name }}</div>
         <v-chip v-if="repo.language">{{ repo.language }}</v-chip>
-        <v-chip><v-icon>mdi-eye</v-icon>{{ repo.watchers }}</v-chip>
+        <v-chip><v-icon>mdi-star</v-icon>{{ repo.stargazers_count }}</v-chip>
       </v-list-item-subtitle>
     </v-list-item-content>
   </v-list-item>
