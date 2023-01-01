@@ -16,18 +16,18 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue'
-import { RepositoryHeader } from '../../types/RepositoryHeader'
+import { Repository } from '../../types/Repository'
 
 interface State {
   keyword: string
   isFetching: boolean
   abortController: AbortController
-  repositories: RepositoryHeader[]
+  repositories: Repository[]
 }
 
 export default Vue.extend({
   props: {
-    repo: Object as PropType<RepositoryHeader>
+    repo: Object as PropType<Repository>
   }
 })
 </script>
