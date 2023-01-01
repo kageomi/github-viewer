@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column align-center">
     <h2>Search Repositories</h2>
-    <v-divider class="my-5"></v-divider>
+    <v-divider class="my-5" style="min-width: 80%"></v-divider>
     <div class="d-flex" style="gap: 10px">
       <search-field v-model="keyword" :isFetching="isFetching" />
       <v-switch v-model="onlyMIT" :label="`only MIT License`"></v-switch>
@@ -13,7 +13,7 @@
       v-if="filteredRepositories.length"
     >
       <router-link
-        :to="repo.full_name"
+        :to="`repo/${repo.full_name}`"
         :key="repo.id"
         v-for="repo in filteredRepositories"
         style="text-decoration: none"
@@ -28,7 +28,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import api from '../../api/github/index'
-import { RepositoryHeader } from '../../types/RepositoryHeader'
+import { Repository } from '../../types/Repository'
 import RepoListItem from '../elements/RepoListItem.vue'
 import SearchField from '../elements/SearchField.vue'
 
@@ -36,7 +36,7 @@ interface State {
   keyword: string
   isFetching: boolean
   abortController: AbortController
-  repositories: RepositoryHeader[]
+  repositories: Repository[]
   onlyMIT: boolean
 }
 
@@ -46,9 +46,6 @@ export default Vue.extend({
   components: {
     RepoListItem,
     SearchField
-  },
-  props: {
-    msg: String
   },
   data() {
     const state: State = {
@@ -72,7 +69,6 @@ export default Vue.extend({
         perPage: PER_PAGE,
         signal
       })
-      console.log(data)
       const { items } = data
 
       this.repositories = items.map(item => ({
@@ -81,11 +77,15 @@ export default Vue.extend({
         full_name: item.full_name,
         description: item.description,
         url: item.url,
+        html_url: item.html_url,
         watchers: item.watchers,
         homepage: item.homepage,
         language: item.language,
         license: item.license,
-        stargazers_count: item.stargazers_count
+        stargazers_count: item.stargazers_count,
+        topics: item.topics,
+        created_at: item.created_at,
+        updated_at: item.updated_at
       }))
       this.isFetching = false
     }

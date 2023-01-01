@@ -1,5 +1,4 @@
 import { Octokit } from 'octokit'
-import { RepositoryHeader } from '../../types/RepositoryHeader'
 
 interface SearchRepositoriesRequest {
   q: string
@@ -10,9 +9,6 @@ interface SearchRepositoriesRequest {
   page?: number
   signal?: AbortSignal
 }
-
-// type SearchRepositoriesResult = OctokitResponse<'GET /search/repositories'>
-// type SearchRepositoriesResult = ReturnType<typeof Octokit.request>
 
 const searchRepositories =
   (octokit: Octokit) =>
