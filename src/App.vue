@@ -14,12 +14,19 @@
 <script lang="ts">
 import Vue from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
+import { searchRepositories, getRepository } from './api/github'
 
 export default Vue.extend({
   data() {
     return {
       msg: 'Hello + Vue 2 :)'
     }
+  },
+  mounted() {
+    searchRepositories({ q: 'react' }).then(data => console.log(data))
+    getRepository({ owner: 'kageomi', repo: 'japaoke' }).then(data =>
+      console.log(data)
+    )
   },
   components: {
     HelloWorld
