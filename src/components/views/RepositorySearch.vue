@@ -2,29 +2,22 @@
   <div class="d-flex flex-column align-center">
     <h2>Search Repositories</h2>
     <v-divider class="my-5"></v-divider>
-    <v-text-field
-      block
-      max-width="600"
-      v-model="keyword"
-      solo
-      :loading="isFetching"
-      label="Enter the keyword for search repositories"
-      clearable
-    ></v-text-field>
+    <search-field v-model="keyword" :isFetching="isFetching" />
     <v-card
       class="mx-auto rounded"
       max-width="600"
       tile
       v-if="repositories.length"
     >
-      <div :key="repo.id" v-for="repo in repositories">
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title>{{ repo.full_name }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+      <router-link
+        :to="repo.full_name"
+        :key="repo.id"
+        v-for="repo in repositories"
+        style="text-decoration: none"
+      >
+        <repo-list-item :repo="repo" />
         <v-divider></v-divider>
-      </div>
+      </router-link>
     </v-card>
   </div>
 </template>
@@ -33,7 +26,8 @@
 import Vue from 'vue'
 import api from '../../api/github/index'
 import { RepositoryHeader } from '../../types/RepositoryHeader'
-import { User } from '../../types/User'
+import RepoListItem from '../elements/RepoListItem.vue'
+import SearchField from '../elements/SearchField.vue'
 
 interface State {
   keyword: string
@@ -43,6 +37,10 @@ interface State {
 }
 
 export default Vue.extend({
+  components: {
+    RepoListItem,
+    SearchField
+  },
   props: {
     msg: String
   },
@@ -55,24 +53,27 @@ export default Vue.extend({
     }
     return state
   },
-
   methods: {
     async search() {
       if (this.abortController) this.abortController.abort()
       this.abortController = new AbortController()
       const { signal } = this.abortController
+
       this.isFetching = true
       const { data } = await api.searchRepositories({ q: this.keyword, signal })
       console.log(data)
       const { items } = data
+
       this.repositories = items.map(item => ({
         id: item.id,
         name: item.name,
         full_name: item.full_name,
         description: item.description,
         url: item.url,
+        watchers: item.watchers,
         homepage: item.homepage,
-        language: item.language
+        language: item.language,
+        license: item.license
       }))
       this.isFetching = false
     }

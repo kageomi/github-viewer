@@ -29,7 +29,7 @@ const RepositoryHeaderRuntimeType = object({
   // size: number(),
   // stargazers_count: number(),
   // watchers_count: number(),
-  language: nullable(string())
+  language: nullable(string()),
   // forks_count: number(),
   // open_issues_count: number(),
   // master_branch: string(),
@@ -78,7 +78,7 @@ const RepositoryHeaderRuntimeType = object({
   // svn_url: string(),
   // forks: number(),
   // open_issues: number(),
-  // watchers: number(),
+  watchers: number(),
   // has_issues: boolean(),
   // has_projects: boolean(),
   // has_pages: boolean(),
@@ -87,14 +87,16 @@ const RepositoryHeaderRuntimeType = object({
   // archived: boolean(),
   // disabled: boolean(),
   // visibility: string(),
-  // license: object({
-  //   key: string(),
-  //   name: string(),
-  //   url: string(),
-  //   spdx_id: string(),
-  //   node_id: string(),
-  //   html_url: string()
-  // })
+  license: nullable(
+    object({
+      key: string(),
+      name: string(),
+      url: nullable(string()),
+      spdx_id: nullable(string()),
+      node_id: string(),
+      html_url: optional(string())
+    })
+  )
   // roman: optional(string())
 })
 
